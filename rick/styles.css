@@ -1,0 +1,43 @@
+:root {
+  color-scheme: light;
+  --color-attg: #0959a1;
+  --color-accent: #0959a1;
+  --color-green-50: #eef5fc;
+  --soar-red: #bd1c22;
+}
+html { scroll-behavior: smooth; }
+body { margin: 0; }
+.factory-photo { display: block; width: 100%; height: 200%; max-width: none; object-fit: cover; object-position: right top; }
+.soar-header-logo { background: #fffffff2; border: 1px solid #ffffffcc; }
+.profile-role { margin: 7px 0 6px; color: #0959a1; font-size: 14px; line-height: 1.5; font-weight: 600; }
+.contact-actions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 12px; row-gap: 18px; margin-top: 32px; }
+.contact-action { min-width: 0; padding: 0; display: flex; flex-direction: column; align-items: stretch; gap: 8px; border: 0; border-radius: 16px; background: transparent; color: #0959a1; font: inherit; text-align: center; text-decoration: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.contact-action-icon { width: 100%; height: 56px; flex: 0 0 56px; transition: background-color .15s; }
+.contact-action svg { display: block; width: 24px; height: 24px; flex: 0 0 24px; }
+.contact-action-label { color: #386083; font-size: 10px; line-height: 1.2; font-weight: 700; letter-spacing: .4px; }
+.contact-action:hover .contact-action-icon, .contact-action:active .contact-action-icon { background: var(--color-gray-100); }
+.wechat-help { margin: 16px 0 0; padding: 12px; border: 1px solid #dce7f3; border-radius: 14px; background: #eef5fc; color: #254d70; font-size: 12px; line-height: 1.7; }
+.wechat-help[hidden] { display: none; }
+.wechat-help strong { user-select: all; }
+.wechat-help span { color: #61788e; font-size: 11px; }
+@media (max-width: 360px) { .contact-action-label { font-size: 9px; letter-spacing: .2px; } }
+#interactive-card { will-change: transform; outline-offset: 6px; touch-action: pan-y; -webkit-tap-highlight-color: transparent; }
+.card-stage { width: 100%; perspective: 1000px; }
+#card-artwork { pointer-events: none; }
+#card-sheen { opacity: 0; mix-blend-mode: screen; }
+.qr-code { background: #fff; padding: 2px; overflow: hidden; }
+.qr-code > img, .qr-code > canvas { width: 100% !important; height: 100% !important; display: block; }
+a:focus-visible, button:focus-visible, #interactive-card:focus-visible { outline: 3px solid var(--soar-red); outline-offset: 4px; }
+#download-card { min-height: 28px; }
+#download-card[aria-busy="true"] { cursor: progress; opacity: .65; }
+#motion-enable { margin: 16px auto 0; border: 1px solid #dce7f3; border-radius: 999px; padding: 10px 18px; color: #0959a1; background: #eef5fc; font-size: 12px; font-weight: 600; cursor: pointer; min-height: 44px; }
+#motion-enable:not([hidden]) { display: block; }
+#status-message { position: fixed; left: 50%; bottom: 104px; transform: translateX(-50%) translateY(12px); width: max-content; max-width: min(90vw, 400px); background: #163b60; color: #fff; padding: 12px 18px; border-radius: 12px; box-shadow: 0 8px 24px #0002; z-index: 100; opacity: 0; pointer-events: none; font-size: 13px; transition: opacity .2s, transform .2s; }
+#status-message.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+.btn-primary { background: linear-gradient(115deg, #0959a1, #0c4d88); box-shadow: 0 10px 24px #0959a126; }
+.btn-primary:hover { background: linear-gradient(115deg, #084c8b, #083e70); }
+.shadow-attg\/20 { --tw-shadow-color: #0959a133; }
+/* Retain the original artwork and geometry, adapting its green accent to blue. */
+#card-artwork > img, #export-card > img { filter: hue-rotate(55deg); }
+@media (max-width: 767px) { #profile-page > .fixed { padding-bottom: max(16px, env(safe-area-inset-bottom)); } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } #interactive-card { transform: none !important; transition: none !important; } #card-sheen { display: none; } * { animation-duration: .01ms !important; } }
