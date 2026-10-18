@@ -37,7 +37,12 @@ a:focus-visible, button:focus-visible, #interactive-card:focus-visible { outline
 .btn-primary { background: linear-gradient(115deg, #0959a1, #0c4d88); box-shadow: 0 10px 24px #0959a126; }
 .btn-primary:hover { background: linear-gradient(115deg, #084c8b, #083e70); }
 .shadow-attg\/20 { --tw-shadow-color: #0959a133; }
-/* Retain the original artwork and geometry, adapting its green accent to blue. */
-#card-artwork > img, #export-card > img { filter: hue-rotate(55deg); }
+
 @media (max-width: 767px) { #profile-page > .fixed { padding-bottom: max(16px, env(safe-area-inset-bottom)); } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } #interactive-card { transform: none !important; transition: none !important; } #card-sheen { display: none; } * { animation-duration: .01ms !important; } }
+
+/* SOAR logo palette, shared by the on-page card and PNG export. */
+.soar-ecard { --color-attg: #005CAA; --color-accent: #005CAA; --soar-red: #C01823; }
+.soar-ecard .ecard-background { display: block; object-fit: fill; }
+.soar-ecard .qr-code { border-radius: 4px; padding: 4px; }
+.soar-ecard .rounded-full.shadow-lg { box-shadow: 0 3px 9px #005caa20; }

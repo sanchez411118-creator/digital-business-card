@@ -19,7 +19,7 @@
 
   const qrUrl = 'https://card.soaralloy.com/rick/';
   document.querySelectorAll('.qr-code').forEach(node => {
-    new QRCode(node, { text: qrUrl, width: 256, height: 256, colorDark: '#0959a1', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.H });
+    new QRCode(node, { text: qrUrl, width: 256, height: 256, colorDark: '#005CAA', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.H });
   });
 
   let animationFrame = 0;
