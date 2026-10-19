@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="380" viewBox="0 0 600 380" fill="none">
+  <title>SOAR folded metal corner pattern</title>
+  <path fill="#fff" d="M0 0h600v380H0z"/>
+  <path fill="#f1f5f9" d="M356 0h244v151L449 0Z"/>
+  <path fill="#e7eff6" d="M446 0h154v111L489 0Z"/>
+  <path fill="#dbe8f2" d="M510 0h90v66Z"/>
+  <path stroke="#c3d6e6" stroke-width=".8" d="m374 0 226 145M397 0l203 130M420 0l180 115"/>
+  <path fill="#185789" d="M555 0h45v34Z"/>
+  <path fill="#af3c46" d="m582 0 18 14v9L570 0Z"/>
+  <path fill="#f1f5f9" d="M600 257v123H402Z"/>
+  <path fill="#e5eef5" d="M600 298v82H467Z"/>
+  <path stroke="#c6d9e8" stroke-width=".8" d="m424 380 176-109M446 380l154-95M468 380l132-82M490 380l110-68"/>
+  <path fill="#185789" d="M600 340v40H535Z"/>
+  <path fill="#af3c46" d="M600 359v11l-16 10h-18Z"/>
+  <path fill="#e8f0f7" d="M0 362v18h116Z"/>
+  <path fill="#185789" d="M0 375v5h33Z"/>
+</svg>
