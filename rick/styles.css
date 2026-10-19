@@ -41,8 +41,26 @@ a:focus-visible, button:focus-visible, #interactive-card:focus-visible { outline
 @media (max-width: 767px) { #profile-page > .fixed { padding-bottom: max(16px, env(safe-area-inset-bottom)); } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } #interactive-card { transform: none !important; transition: none !important; } #card-sheen { display: none; } * { animation-duration: .01ms !important; } }
 
-/* Brand-adjacent palette: ink blue, muted red, and warm white. The SOAR logo retains its official colors. */
-.soar-ecard { --color-attg: #234F70; --color-accent: #234F70; --soar-red: #A84B50; }
-.soar-ecard .ecard-background { display: block; object-fit: fill; }
-.soar-ecard .qr-code { border-radius: 4px; padding: 4px; }
-.soar-ecard .rounded-full.shadow-lg { box-shadow: 0 3px 9px #234f7018; }
+/* The same layout is used for the interactive card and high-resolution export. */
+#interactive-card { border-color: #e1e7eb; box-shadow: 0 12px 32px #173c561c; }
+.soar-editorial-card { width: 600px; height: 380px; display: flex; overflow: hidden; border-radius: 12px; background: #fafaf7; font-family: Inter, Arial, sans-serif; text-align: left; color: #183b53; }
+.soar-editorial-card p { margin: 0; }
+.ecard-person { width: 410px; flex: 0 0 410px; padding: 32px 32px 28px; display: flex; flex-direction: column; }
+.ecard-name { font-size: 49px; line-height: 1.05; font-weight: 750; letter-spacing: -1.8px; }
+.ecard-title { margin-top: 9px !important; color: #607481; font-size: 14px; line-height: 20px; font-weight: 500; }
+.ecard-accent { display: block; width: 34px; height: 3px; margin-top: 19px; background: #a84b50; }
+.ecard-contact-list { margin-top: 26px; display: grid; gap: 11px; }
+.ecard-contact-row { display: flex; align-items: center; gap: 10px; white-space: nowrap; font-size: 13.2px; line-height: 17px; font-weight: 500; color: #233e51; }
+.ecard-contact-row svg { width: 15px; height: 15px; flex: 0 0 15px; color: #42657e; }
+.ecard-contact-type { margin-left: auto; color: #70828f; font-size: 8px; line-height: 1; letter-spacing: 1px; font-weight: 600; }
+.ecard-address { margin-top: auto; padding-top: 16px; border-top: 1px solid #e1e7e9; color: #607481; font-size: 11px; line-height: 16px; font-weight: 400; }
+.ecard-brand-panel { width: 190px; flex: 0 0 190px; padding: 28px 24px 26px; background: #234f70; color: #ffffff; display: flex; flex-direction: column; align-items: center; position: relative; }
+.ecard-brand-panel::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 5px; background: #a84b50; }
+.ecard-logo { width: 108px; height: 100px; padding: 14px; border-radius: 12px; background: #ffffff; display: flex; align-items: center; justify-content: center; }
+.ecard-logo img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.ecard-company { width: 100%; margin-top: 20px; text-align: center; }
+.ecard-company p:first-child { font-size: 13px; line-height: 20px; font-weight: 650; letter-spacing: 1.2px; }
+.ecard-company p:last-child { margin-top: 3px; color: #dce6ed; font-size: 9.5px; line-height: 15px; font-weight: 400; white-space: nowrap; }
+.ecard-qr-block { margin-top: auto; display: flex; flex-direction: column; align-items: center; }
+.soar-editorial-card .qr-code { width: 92px; height: 92px; padding: 6px; border-radius: 6px; background: #ffffff; }
+.ecard-qr-block > p { margin-top: 9px; color: #dce6ed; font-size: 7.5px; line-height: 11px; font-weight: 500; letter-spacing: 1.3px; }
