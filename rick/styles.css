@@ -41,8 +41,8 @@ a:focus-visible, button:focus-visible, #interactive-card:focus-visible { outline
 @media (max-width: 767px) { #profile-page > .fixed { padding-bottom: max(16px, env(safe-area-inset-bottom)); } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } #interactive-card { transform: none !important; transition: none !important; } #card-sheen { display: none; } * { animation-duration: .01ms !important; } }
 
-/* SOAR logo palette, shared by the on-page card and PNG export. */
-.soar-ecard { --color-attg: #005CAA; --color-accent: #005CAA; --soar-red: #C01823; }
+/* Brand-adjacent palette: ink blue, muted red, and warm white. The SOAR logo retains its official colors. */
+.soar-ecard { --color-attg: #234F70; --color-accent: #234F70; --soar-red: #A84B50; }
 .soar-ecard .ecard-background { display: block; object-fit: fill; }
 .soar-ecard .qr-code { border-radius: 4px; padding: 4px; }
-.soar-ecard .rounded-full.shadow-lg { box-shadow: 0 3px 9px #005caa20; }
+.soar-ecard .rounded-full.shadow-lg { box-shadow: 0 3px 9px #234f7018; }
