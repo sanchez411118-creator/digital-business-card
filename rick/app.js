@@ -77,7 +77,7 @@
     downloadButton.textContent = 'Preparing…';
     try {
       const anchor = document.createElement('a');
-      anchor.href = 'assets/rick-card-mineral-blue-20261024.pdf';
+      anchor.href = 'assets/rick-card-mineral-blue-labeled-20261024.pdf';
       anchor.download = 'Rick-SOAR-Business-Card.pdf';
       document.body.append(anchor);
       anchor.click();
