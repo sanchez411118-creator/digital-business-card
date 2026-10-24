@@ -1,10 +1,8 @@
 (() => {
   'use strict';
   const card = document.getElementById('interactive-card');
-  const artwork = document.getElementById('card-artwork');
   const sheen = document.getElementById('card-sheen');
   const downloadButton = document.getElementById('download-card');
-  const exportCard = document.getElementById('export-card');
   const motionButton = document.getElementById('motion-enable');
   const status = document.getElementById('status-message');
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -12,15 +10,6 @@
   stage.className = 'card-stage';
   card.before(stage);
   stage.append(card);
-
-  const resize = () => { artwork.style.transform = `scale(${card.clientWidth / 600})`; };
-  new ResizeObserver(resize).observe(card);
-  resize();
-
-  const qrUrl = 'https://card.soaralloy.com/rick/';
-  document.querySelectorAll('.qr-code').forEach(node => {
-    new QRCode(node, { text: qrUrl, width: 256, height: 256, colorDark: '#234F70', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.H });
-  });
 
   let animationFrame = 0;
   let pointerStart = null;
@@ -87,16 +76,13 @@
     const originalLabel = downloadButton.innerHTML;
     downloadButton.textContent = 'Preparing…';
     try {
-      await document.fonts.ready;
-      await Promise.all([...exportCard.querySelectorAll('img')].map(img => img.decode().catch(() => {})));
-      const dataUrl = await htmlToImage.toPng(exportCard, { pixelRatio: 3, backgroundColor: '#ffffff', cacheBust: false, style: { transform: 'none' } });
       const anchor = document.createElement('a');
-      anchor.href = dataUrl;
-      anchor.download = 'Rick-SOAR-Business-Card.png';
+      anchor.href = 'assets/rick-card-mineral-blue-20261024.pdf';
+      anchor.download = 'Rick-SOAR-Business-Card.pdf';
       document.body.append(anchor);
       anchor.click();
       anchor.remove();
-      announce('Business card downloaded.');
+      announce('Business card PDF download started.');
     } catch (error) {
       console.error('Business card export failed:', error);
       announce('Unable to download the card. Please try again.');
