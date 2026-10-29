@@ -27,7 +27,11 @@
 .brochure-reader-stage { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; padding: 16px; -webkit-overflow-scrolling: touch; touch-action: pan-x pan-y pinch-zoom; }
 .brochure-paper { margin: 0 auto; background: white; box-shadow: 0 3px 18px #233d5c21; }
 .brochure-paper img { display: block; width: 100%; max-width: none; height: auto; cursor: zoom-in; }
-.brochure-paper[data-zoomed="true"] img { cursor: zoom-out; }
+.brochure-reader-stage[data-zoomed="true"] { touch-action: none; }
+.brochure-paper img { user-select: none; -webkit-user-select: none; -webkit-user-drag: none; }
+.brochure-paper[data-zoomed="true"] img { cursor: grab; }
+.brochure-paper.is-dragging img { cursor: grabbing; }
+.brochure-paper img:focus-visible { outline: 3px solid #0959a1; outline-offset: -3px; }
 .brochure-reader-message { margin: 40px auto; padding: 20px; max-width: 360px; text-align: center; font-size: 13px; line-height: 1.7; color: #5d7187; }
 .brochure-reader-message[hidden], .brochure-paper[hidden] { display: none; }
 .brochure-reader-footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 20px; background: #fff; border-top: 1px solid #dfe6ed; flex-shrink: 0; }
