@@ -36,6 +36,13 @@
     image.src = url;
     return image;
   };
+  let drag = null;
+  let suppressClick = false;
+  const stopDrag = () => {
+    if (drag && fullImage.hasPointerCapture(drag.id)) fullImage.releasePointerCapture(drag.id);
+    drag = null;
+    paper.classList.remove('is-dragging');
+  };
   const updateZoom = () => {
     if (!reader.open || paper.hidden) return;
     const style = getComputedStyle(stage);
@@ -45,17 +52,33 @@
     const fitWidth = Math.max(1, Math.min(availableWidth, availableHeight * ratio));
     paper.style.width = `${fitWidth * zoom}px`;
     paper.dataset.zoomed = String(zoom > 1);
+    stage.dataset.zoomed = String(zoom > 1);
+    fullImage.setAttribute('aria-label', zoom > 1 ? 'Drag to explore details. Click to fit page.' : 'Click to zoom in.');
+    fullImage.setAttribute('aria-pressed', String(zoom > 1));
     fitButton.textContent = zoom === 1 ? 'Fit' : `${Math.round(zoom * 100)}%`;
     fitButton.setAttribute('aria-label', `Fit page to screen. Current zoom ${Math.round(zoom * 100)} percent`);
     zoomOut.disabled = zoom <= 1;
     zoomIn.disabled = zoom >= 3;
   };
-  const setZoom = value => {
+  const setZoom = (value, point) => {
+    stopDrag();
+    const before = fullImage.getBoundingClientRect();
+    const viewport = stage.getBoundingClientRect();
+    const x = point ? point.clientX : viewport.left + stage.clientWidth / 2;
+    const y = point ? point.clientY : viewport.top + stage.clientHeight / 2;
+    const relativeX = before.width ? (x - before.left) / before.width : 0.5;
+    const relativeY = before.height ? (y - before.top) / before.height : 0.5;
     zoom = Math.max(1, Math.min(3, value));
     updateZoom();
     if (zoom === 1) stage.scrollTo(0, 0);
+    else {
+      const after = fullImage.getBoundingClientRect();
+      stage.scrollLeft += after.left + relativeX * after.width - x;
+      stage.scrollTop += after.top + relativeY * after.height - y;
+    }
   };
   const loadFullPage = () => {
+    stopDrag();
     const request = ++imageRequest;
     const page = currentPage;
     zoom = 1;
@@ -112,6 +135,7 @@
   document.getElementById('brochure-close').addEventListener('click', () => reader.close());
   reader.addEventListener('click', event => { if (event.target === reader) reader.close(); });
   reader.addEventListener('close', () => {
+    stopDrag();
     document.body.style.overflow = bodyOverflow;
     returnFocus?.focus({ preventScroll: true });
   });
@@ -121,7 +145,51 @@
   zoomOut.addEventListener('click', () => setZoom(zoom - 0.5));
   zoomIn.addEventListener('click', () => setZoom(zoom + 0.5));
   fitButton.addEventListener('click', () => setZoom(1));
-  fullImage.addEventListener('click', () => { if (!swiped) setZoom(zoom === 1 ? 2 : 1); swiped = false; });
+  fullImage.tabIndex = 0;
+  fullImage.setAttribute('role', 'button');
+  fullImage.addEventListener('dragstart', event => event.preventDefault());
+  fullImage.addEventListener('pointerdown', event => {
+    if (!event.isPrimary || event.button !== 0) return;
+    suppressClick = false;
+    if (zoom === 1) return;
+    drag = { id: event.pointerId, x: event.clientX, y: event.clientY,
+      left: stage.scrollLeft, top: stage.scrollTop, moved: false };
+    fullImage.setPointerCapture(event.pointerId);
+  });
+  fullImage.addEventListener('pointermove', event => {
+    if (!drag || event.pointerId !== drag.id) return;
+    const dx = event.clientX - drag.x;
+    const dy = event.clientY - drag.y;
+    if (!drag.moved && Math.hypot(dx, dy) < 6) return;
+    drag.moved = true;
+    suppressClick = true;
+    paper.classList.add('is-dragging');
+    stage.scrollLeft = drag.left - dx;
+    stage.scrollTop = drag.top - dy;
+  });
+  fullImage.addEventListener('pointerup', event => {
+    if (!drag || event.pointerId !== drag.id) return;
+    const tapped = !drag.moved && event.pointerType === 'touch';
+    stopDrag();
+    // Handle touch taps before releasing capture; ignore any compatibility click.
+    if (tapped) {
+      setZoom(1);
+      suppressClick = true;
+    }
+  });
+  fullImage.addEventListener('pointercancel', () => { suppressClick = true; stopDrag(); });
+  fullImage.addEventListener('lostpointercapture', stopDrag);
+  fullImage.addEventListener('click', event => {
+    if (!swiped && !suppressClick) setZoom(zoom === 1 ? 2 : 1, event.detail ? event : null);
+    swiped = false;
+    suppressClick = false;
+  });
+  fullImage.addEventListener('keydown', event => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      setZoom(zoom === 1 ? 2 : 1);
+    }
+  });
   reader.addEventListener('keydown', event => {
     if (event.target.tagName === 'SELECT') return;
     const keys = { ArrowLeft: () => turnPage(-1), ArrowRight: () => turnPage(1), '+': () => setZoom(zoom + .5), '=': () => setZoom(zoom + .5), '-': () => setZoom(zoom - .5), '0': () => setZoom(1) };
