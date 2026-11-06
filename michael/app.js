@@ -77,7 +77,7 @@
     downloadButton.textContent = 'Preparing…';
     try {
       const anchor = document.createElement('a');
-      anchor.href = 'assets/Michael-SOAR-Business-Card.pdf';
+      anchor.href = 'assets/Michael-SOAR-Business-Card.pdf?v=transparent-qr-20261106';
       anchor.download = 'Michael-SOAR-Business-Card.pdf';
       document.body.append(anchor);
       anchor.click();
